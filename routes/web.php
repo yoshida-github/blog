@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController; //外部にあるPostControllerクラスをインポート
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// /postsへのGETリクエストがあった場合、PostControllerクラスのindexメソッドを呼び出すように設定
+Route::get('/posts', [PostController::class, 'index']);
