@@ -9,7 +9,7 @@ class Post extends Model
 {
     use HasFactory;
     
-    // 取得データの最大件数を10件以下に指定
+    // 取得データの最大件数を5件以下に指定
     public function getPaginateByLimit(int $limit_count = 5)
     {
         // updated_atで降順に並べた後、limitで件数制限をかける
