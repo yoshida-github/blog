@@ -13,6 +13,7 @@
     <body>
         <h1>Blog Name</h1>
         <div class='posts'>
+            <!--ブログ投稿一覧を展開して表示-->
             @foreach ($posts as $post)
                 <div class='post'>
                     <h2 class='title'>{{ $post->title }}</h2>
@@ -20,5 +21,7 @@
                 </div>
             @endforeach
         </div>
+        <!--ページネーションリンク-->
+        <div class='paginate'>{{ $posts->links() }}</div>
     </body>
 </html>
