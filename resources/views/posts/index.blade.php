@@ -11,21 +11,21 @@
     </head>
     
     <body>
-        <a href='/posts/create'>ブログを作成する</a>
+        <a href="/posts/create">ブログを作成する</a>
         <h1>Blog Name</h1>
-        <div class='posts'>
+        <div class="posts">
             <!--ブログ投稿一覧を展開して表示-->
             @foreach ($posts as $post)
-                <div class='post'>
-                        <h2 class='title'>
+                <div class="post">
+                        <h2 class="title">
                             <!--各投稿へのリンクとしてタイトルを表示-->
                             <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                         </h2>
-                    <p class='body'>{{ $post->body }}</p>
+                    <p class="body">{{ $post->body }}</p>
                 </div>
             @endforeach
         </div>
         <!--ページネーションリンク-->
-        <div class='paginate'>{{ $posts->links() }}</div>
+        <div class="paginate">{{ $posts->links() }}</div>
     </body>
 </html>
