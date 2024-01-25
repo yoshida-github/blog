@@ -11,7 +11,7 @@
     </head>
     
     <body>
-        <a href="/posts/create">ブログを作成する</a>
+        <a href='/posts/create'>ブログを作成する</a>
         <h1>Blog Name</h1>
         <div class='posts'>
             <!--ブログ投稿一覧を展開して表示-->

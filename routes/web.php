@@ -26,9 +26,12 @@ use App\Http\Controllers\PostController; //外部にあるPostControllerクラ�
 // '/'にGetリクエストが来たら
 Route::get('/', [PostController::class, 'index']);
 
-// ブログ作成画面
+// ブログ作成画面を表示
 Route::get('/posts/create', [PostController::class, 'create']);
 
 // ブログ投稿詳細画面
 // '/posts/{対象データのID}'にGetリクエストが来たら、PostControllerのshowメソッドを実行する。
 Route::get('/posts/{post}', [PostController::class, 'show']);
+
+//ブログを投稿するボタンをクリックした際のPOSTリクエストを実行する
+Route::post('/posts', [PostController::class, 'store']);
