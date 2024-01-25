@@ -23,11 +23,22 @@ class PostController extends Controller
      * 特定IDのpostを表示する
      * 
      * @params Object Post /／引数の＄postはid=1のPostインスタンス
-     * @return Reposnes post view
+     * @return Responses post view
      */
      public function show(Post $post)
      {
          // 'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
          return view('posts.show')->with(['post' => $post]);
+     }
+     
+    /**
+     * ブログ作成画面を表示する
+     * 
+     * @return Responses create view
+     */
+     public function create()
+     {
+        //  ブログ作成画面を表示する
+         return view('posts.create');
      }
 }
