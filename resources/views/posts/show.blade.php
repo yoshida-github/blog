@@ -15,17 +15,18 @@
         <h1 class="title">
             {{ $post->title }}
         </h1>
-        <div class='content'>
+        <div class="content">
             <!--ブログ本文-->
-            <div class='contnt__post'>
+            <div class="contnt__post">
                 <h3>本文</h3>
-                <p class='body'>{{ $post->body }}</p>
+                <p class="body">{{ $post->body }}</p>
             </div>
         </div>
         
         <!--フッター-->
         <div class="footer">
-            <a href="/">戻る</a>
+            <!--一覧画面に戻るボタン-->
+            <a href="/">ブログ一覧に戻る</a>
         </div>
     </body>
 </html>
