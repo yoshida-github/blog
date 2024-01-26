@@ -63,4 +63,16 @@ class PostController extends Controller
         //投稿したidのURLにリダイレクトする
         return redirect('/posts/' . $post->id);
      }
+     
+    /**
+     * ブログ編集画面を表示する
+     * 
+     * @params Object Post
+     * @return edit view
+     */
+     public function edit(Post $post)
+     {
+         //ブログ編集画面を表示し、$postのデータを渡す
+         return view('posts.edit')->with(['post' => $post]);
+     }
 }

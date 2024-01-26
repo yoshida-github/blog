@@ -11,6 +11,8 @@
     </head>
     
     <body>
+        <!--ブログ編集画面へのリンク-->
+        <div class="edit"><a href="/posts/{{ $post->id }}/edit">ブログを編集する</a></div>
         <!--ブログタイトル-->
         <h1 class="title">
             {{ $post->title }}
