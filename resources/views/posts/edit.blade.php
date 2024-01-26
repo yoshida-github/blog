@@ -24,9 +24,11 @@
             <div class="title">
                 <lavel>
                     タイトル
-                    <!--valueに編集前のタイトルを指定-->
-                    <input type="text" name="post[title]" placeholder="ここにタイトルを入力して下さい" value="{{ $post->title }}" />
+                    <!--valueにold関数を指定し、old関数の引数に（入力データ, 編集前のデータ）を指定。これにより、もしエラーが発生しても入力データを維持できる-->
+                    <input type="text" name="post[title]" placeholder="ここにタイトルを入力して下さい" value="{{ old('post.title', $post->title) }}" />
                 </lavel>
+                <!--エラーメッセージ（$errorsに保存されているエラーメッセージを表示）-->
+                <p class="body__error" style="color: red">{{ $errors->first('post.title') }}</p>
             </div>
             
             <!--本文入力フォーム-->
@@ -34,8 +36,10 @@
                 <label>
                     本文
                     <!--テキストエリア内に編集前の本文を記述-->
-                    <textarea name="post[body]" placeholder="ここに本文を入力して下さい" value="{{ $post->body }}">{{ $post->body }}</textarea>
+                    <textarea name="post[body]" placeholder="ここに本文を入力して下さい">{{ old('post.body', $post->body) }}</textarea>
                 </label>
+                <!--エラーメッセージ-->
+                <p class="body__error" style="color: red">{{ $errors->first('post.body') }}</p>
             </div>
             
             <!--保存ボタン-->
