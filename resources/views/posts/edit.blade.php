@@ -18,7 +18,7 @@
             <!--CSRF保護_必須-->
             @csrf
             <!--FormタグでサポートされていないPUTリクエストをBladeディレクティブで定義-->
-            @method('PUT')
+            @method("PUT")
             
             <!--タイトル入力フォーム-->
             <div class="title">

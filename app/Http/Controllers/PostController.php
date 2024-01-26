@@ -49,7 +49,7 @@ class PostController extends Controller
      * @params Object Request, Post
      * @return redirect ('/posts/' . $post->id)
      * 
-     * 引数にはユーザーからのバリデーション済みの入力データを扱うため、PostRequestインスタンスを利用する。
+     * バリデーション済みの入力データを扱うため、PostRequestインスタンスを利用する。
      * ユーザーの入力データをDBのpostsテーブルに保存するため、空のPostインスタンスを利用する。
      * 
      * 注意: データを保存するにはPostモデル側でfillableプロパティにfill可能なプロパティを指定しておく必要あり。
@@ -75,4 +75,21 @@ class PostController extends Controller
          //ブログ編集画面を表示し、$postのデータを渡す
          return view('posts.edit')->with(['post' => $post]);
      }
+     
+     /**
+      * ブログ編集を実行する
+      * 
+      * @prams Object PostRequest, Post
+      * @return redirect ('/posts/' . $post->id)
+      */
+      public function update(PostRequest $request, Post $post)
+      {
+          //バリデーション済み入力データ
+          $input_post = $request['post'];
+          //入力データを保存（差分のみ）
+          $post->fill($input_post)->save();
+          
+          //編集済みブログ詳細画面にリダイレクトする。
+          return redirect('/posts/' . $post->id);
+      }
 }
