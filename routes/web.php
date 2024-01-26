@@ -35,3 +35,9 @@ Route::get('/posts/{post}', [PostController::class, 'show']);
 
 //ブログを投稿するボタンをクリックした際のPOSTリクエストを実行する
 Route::post('/posts', [PostController::class, 'store']);
+
+// ブログ編集画面を表示（{post}は編集したいブログ記事のid）
+Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
+
+//ブログ編集を実行する。
+Route::put('/posts/{post}', [PostController::class, 'update']);
