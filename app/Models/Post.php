@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// 論理削除を行うため、SoftDeletesをuse
+// 論理削除を行うため、SoftDeletesトレイトをuse
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
-    //論理削除を行うためSoftDeletesを追加
+    //論理削除を行うためSoftDeletesトレイトを追加
     use SoftDeletes;
     
     /**
