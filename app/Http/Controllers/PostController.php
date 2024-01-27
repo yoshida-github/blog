@@ -79,7 +79,7 @@ class PostController extends Controller
      /**
       * ブログ編集を実行する
       * 
-      * @prams Object PostRequest, Post
+      * @params Object PostRequest, Post
       * @return redirect ('/posts/' . $post->id)
       */
       public function update(PostRequest $request, Post $post)
@@ -92,4 +92,18 @@ class PostController extends Controller
           //編集済みブログ詳細画面にリダイレクトする。
           return redirect('/posts/' . $post->id);
       }
+      
+      /**
+       * ブログ削除を実行する
+       * 
+       * @params Object Post
+       * @return redirect '/'
+       */
+       public function delete(Post $post)
+       {
+           // Modelクラスに用意されているdelete関数を利用する。
+           $post->delete();
+           // 一覧画面にリダイレクト
+           return redirect('/');
+       }
 }
