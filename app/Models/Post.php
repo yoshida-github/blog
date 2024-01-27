@@ -4,9 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// 論理削除を行うため、SoftDeletesをuse
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    //論理削除を行うためSoftDeletesを追加
+    use SoftDeletes;
+    
     /**
      * fill（データの保存）が可能なプロパティを指定
      * この場合、'title'と'body'に紐づく値だけが保存可能になる。

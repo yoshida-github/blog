@@ -41,3 +41,6 @@ Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
 
 //ブログ編集を実行する。
 Route::put('/posts/{post}', [PostController::class, 'update']);
+
+// ブログ削除を実行する
+Route::delete('/posts/{post}', [PostController::class, 'delete']);

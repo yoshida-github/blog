@@ -22,10 +22,36 @@
                             <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
                         </h2>
                     <p class="body">{{ $post->body }}</p>
+                    
+                    <!--ブログ削除ボタンForm-->
+                    <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="POST">
+                        <!--csrf保護-->
+                        @csrf
+                        <!--DLETEリクエストを指定-->
+                        @method('DELETE')
+                        <!--ブログ削除実行ボタン-->
+                        <button type="button" onclick="deletePost({{ $post->id }})" style="color: red">ブログを削除する</button>
+                    </form>
                 </div>
             @endforeach
         </div>
         <!--ページネーションリンク-->
         <div class="paginate">{{ $posts->links() }}</div>
+        
+        <!--JavaScript-->
+        <script>
+            /**
+             * ブログ削除確認ダイアログを表示する
+             * 
+             * @params id
+             */
+            function deletePost(id) {
+                'use strict'
+                
+                if (confirm('削除すると復元できません。\n本当に削除しますか？')) {
+                    document.getElementById(`form_${id}`).submit();
+                }
+            }
+        </script>
     </body>
 </html>
