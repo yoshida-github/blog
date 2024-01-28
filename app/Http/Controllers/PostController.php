@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post; // use宣言、App\Models内のPostクラスをインポート。
-use App\Http\Requests\PostRequest; //バリデーションを使用するためstore関数で使用
+use App\Http\Requests\PostRequest; // バリデーションを使用するためstore関数で使用
+use App\Models\Category; // カテゴリーを使用するため
 
 class PostController extends Controller
 {
@@ -23,24 +24,25 @@ class PostController extends Controller
     /**
      * 特定IDのpostを表示する
      * 
-     * @params Object Post /／引数の＄postはid=1のPostインスタンス
+     * @params Object Post /／引数の＄postはリクエストされたidのPostインスタンス
      * @return Responses post view
      */
      public function show(Post $post)
      {
-        // 'post'はbladeファイルで使う変数。中身は$postはid=1のPostインスタンス。
+        // 'post'はbladeファイルで使う変数。中身は$postはリクエストされたidのPostインスタンス。
         return view('posts.show')->with(['post' => $post]);
      }
      
     /**
      * ブログ作成画面を表示する
      * 
+     * @params Object Category
      * @return Responses create view
      */
-    public function create()
+    public function create(Category $category)
     {
-        //  ブログ作成画面を表示する
-        return view('posts.create');
+        //  ブログ作成画面を表示する。withメソッドでカテゴリー名を全て取得
+        return view('posts.create')->with(['categories' => $category->get()]);
     }
      
     /**

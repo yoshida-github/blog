@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Post extends Model
 {
+    use HasFactory;
+    
     //論理削除を行うためSoftDeletesトレイトを追加
     use SoftDeletes;
     
@@ -19,15 +21,24 @@ class Post extends Model
     protected $fillable = [
         'title',
         'body',
+        'category_id',
     ];
-    
-    use HasFactory;
-    
     
     // 取得データの最大件数を5件以下に指定
     public function getPaginateByLimit(int $limit_count = 5)
     {
         // updated_atで降順に並べた後、limitで件数制限をかける
         return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
+    }
+    
+    /**
+     * @return Category
+     * 
+     * 1対多なのでcategoryは単数系
+     */
+    public function category()
+    {
+        // 関連する1つのPostモデルのインスタンスを呼び出す
+        return $this->belongsTo(Category::class);
     }
 }

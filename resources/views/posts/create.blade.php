@@ -40,6 +40,19 @@
                 <p class="body__error" style="color: red">{{ $errors->first('post.body') }}</p>
             </div>
             
+            <!--カテゴリー選択selectフォーム-->
+            <div class="category">
+                <label>
+                    カテゴリー
+                    <select name="post[category_id]">
+                        <!--$categories内の全件データから1件ずつ表示。実際に送信されるのはvalueに指定された値-->
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            </div>
+            
             <!--保存ボタン-->
             <div class="submit">
                 <input type="submit" value="投稿する" />
