@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController; //外部にあるPostControllerクラスをインポート
+use App\Http\Controllers\CategoryController; // CategoryControllerをインポート
 
 /*
 |--------------------------------------------------------------------------
@@ -44,3 +45,6 @@ Route::put('/posts/{post}', [PostController::class, 'update']);
 
 // ブログ削除を実行する
 Route::delete('/posts/{post}', [PostController::class, 'delete']);
+
+// カテゴリーごとのページを表示する
+Route::get('/categories/{category}', [CategoryController::class, 'index']);
