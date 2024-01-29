@@ -23,6 +23,9 @@
                         </h2>
                     <p class="body">{{ $post->body }}</p>
                     
+                    <!--カテゴリー名-->
+                    <a href="">{{ $post->category->name }}</a>
+                    
                     <!--ブログ削除ボタンForm-->
                     <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="POST">
                         <!--csrf保護-->

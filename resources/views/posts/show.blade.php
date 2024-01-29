@@ -25,6 +25,9 @@
             </div>
         </div>
         
+        <!--カテゴリー名-->
+        <a href="">{{ $post->category->name }}</a>
+        
         <!--フッター-->
         <div class="footer">
             <!--一覧画面に戻るボタン-->

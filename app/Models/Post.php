@@ -24,11 +24,18 @@ class Post extends Model
         'category_id',
     ];
     
-    // 取得データの最大件数を5件以下に指定
+    /**
+     * 取得データの最大件数を5件以下に指定してページネイトできるようにする。
+     * 
+     * 「Eagerロードについて」
+     * withメソッドを使用した書き方はEagerロードという機能を使う書き方で、全てのデータを取得する際のクエリ数を2つだけに減らす機能。
+     * メリットは、クエリを減らすことでアプリケーションの動作が軽くなることや、「N+1クエリ問題」を軽減できることなどがある。
+     * もし、このEagerロードを使用しない場合は、「データの個数+1」回のクエリを実行する(例えば、ブログが10投稿あれば11回クエリを実行する)。
+     */
     public function getPaginateByLimit(int $limit_count = 5)
     {
-        // updated_atで降順に並べた後、limitで件数制限をかける
-        return $this->orderBy('updated_at', 'DESC')->paginate($limit_count);
+        // リレーションしているカテゴリーを取得し、updated_atで降順に並べた後、limitで件数制限をかけて表示する
+        return $this::with('category')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
     
     /**
