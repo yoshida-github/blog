@@ -38,6 +38,9 @@
                     </form>
                 </div>
             @endforeach
+            
+            <a href="/">ホームに戻る</a>
+            
         </div>
         <!--ページネーションリンク-->
         <div class="paginate">{{ $posts->links() }}</div>
