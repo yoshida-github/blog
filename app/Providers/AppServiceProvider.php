@@ -21,5 +21,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrapFive();
+        \URL::forceScheme('https'); // https化するため
+        $this->app['request']->server->set('HTTPS', 'on'); // ページネーションを使用した際の2ページ以降もHTTPS化するため
     }
 }
