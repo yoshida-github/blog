@@ -12,8 +12,13 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <!--ダッシュボードへのリンク-->
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
+                    </x-nav-link>
+                    <!--ブログ一覧ページへのリンク（名前付きルートを呼び出す書き方）-->
+                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                        {{ __('Index') }}
                     </x-nav-link>
                 </div>
             </div>

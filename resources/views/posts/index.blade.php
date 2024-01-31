@@ -11,37 +11,44 @@
     </head>
     
     <body>
-        <a href="/posts/create">ブログを作成する</a>
-        <h1>Blog Name</h1>
-        
-        <div class="posts">
-            <!--ブログ投稿一覧を展開して表示-->
-            @foreach ($posts as $post)
-                <div class="post">
-                        <h2 class="title">
-                            <!--各投稿へのリンクとしてタイトルを表示-->
-                            <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
-                        </h2>
-                    <p class="body">{{ $post->body }}</p>
-                    
-                    <!--カテゴリー名-->
-                    <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
-                    
-                    <!--ブログ削除ボタンForm-->
-                    <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="POST">
-                        <!--csrf保護-->
-                        @csrf
-                        <!--DLETEリクエストを指定-->
-                        @method('DELETE')
-                        <!--ブログ削除実行ボタン-->
-                        <button type="button" onclick="deletePost({{ $post->id }})" style="color: red">ブログを削除する</button>
-                    </form>
-                </div>
-            @endforeach
-        </div>
-        <!--ページネーションリンク-->
-        <div class="paginate">{{ $posts->links() }}</div>
-        
+        <!--親ビューを継承-->
+        <x-app-layout>
+            <!--ヘッダーを表示-->
+            <x-slot name="header">
+                ブログ一覧
+            </x-slot>
+            
+            <a href="/posts/create">ブログを作成する</a>
+            <h1>Blog Name</h1>
+            
+            <div class="posts">
+                <!--ブログ投稿一覧を展開して表示-->
+                @foreach ($posts as $post)
+                    <div class="post">
+                            <h2 class="title">
+                                <!--各投稿へのリンクとしてタイトルを表示-->
+                                <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
+                            </h2>
+                        <p class="body">{{ $post->body }}</p>
+                        
+                        <!--カテゴリー名-->
+                        <a href="/categories/{{ $post->category->id }}">{{ $post->category->name }}</a>
+                        
+                        <!--ブログ削除ボタンForm-->
+                        <form action="/posts/{{ $post->id }}" id="form_{{ $post->id }}" method="POST">
+                            <!--csrf保護-->
+                            @csrf
+                            <!--DLETEリクエストを指定-->
+                            @method('DELETE')
+                            <!--ブログ削除実行ボタン-->
+                            <button type="button" onclick="deletePost({{ $post->id }})" style="color: red">ブログを削除する</button>
+                        </form>
+                    </div>
+                @endforeach
+            </div>
+            <!--ページネーションリンク-->
+            <div class="paginate">{{ $posts->links() }}</div>
+        </x-app-layout>
         <!--JavaScript-->
         <script>
             /**
