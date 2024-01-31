@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController; //PostControllerを使用するため
+use App\Http\Controllers\PostController; //PostControllerをインポート
+use App\Http\Controllers\CategoryController; // CategoryControllerをインポート
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,6 @@ use App\Http\Controllers\PostController; //PostControllerを使用するため
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -29,7 +26,27 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-//'index'という名前付きルート
-Route::get('/', [PostController::class, 'index'])->name('index');
+// PostControllerルーティンググループ（認証機能付き）
+Route::controller(PostController::class)->middleware(['auth'])->group(function(){
+    // ブログ投稿一覧画面を表示
+    Route::get('/', 'index')->name('index');
+    //ブログを投稿する
+    Route::post('/posts', 'store')->name('store');
+    //プログ作成画面を表示
+    Route::get('/posts/create', 'create')->name('create');
+    //ブログ詳細画面を表示
+    Route::get('/posts/{post}', 'show')->name('show');
+    //ブログ編集を実行する
+    Route::put('/posts/{post}', 'update')->name('update');
+    //ブログ削除を実行する
+    Route::delete('/posts/{post}', 'delete')->name('delete');
+    //ブログ編集画面を表示
+    Route::get('/posts/{post}/edit', 'edit')->name('edit');
+});
+
+// CategoryControllerルーティンググループ
+Route::controller(CategoryController::class)->middleware(['auth'])->group(function(){
+    Route::get('/categories/{category}', 'index');
+});
 
 require __DIR__.'/auth.php';
