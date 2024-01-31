@@ -1,7 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostController; //外部にあるPostControllerクラスをインポート
+use App\Http\Controllers\PostController; //PostControllerをインポート
 use App\Http\Controllers\CategoryController; // CategoryControllerをインポート
 
 /*
@@ -15,36 +16,37 @@ use App\Http\Controllers\CategoryController; // CategoryControllerをインポ�
 |
 */
 
-/**
- * 注意:
- * web.phpは上から順番にルーティングを見ていき、当てはまるルーティングが呼び出される。
- * 具体的には、ブログ作成画面よりも先にブログ詳細画面のルーティングを書くと、
- * {post}にcreateという文字列が入ってしまい、
- * showメソッドが呼び出されるという予期しない挙動になる。
- */
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-// ブログ投稿一覧画面
-// '/'にGetリクエストが来たら
-Route::get('/', [PostController::class, 'index']);
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-// ブログ作成画面を表示
-Route::get('/posts/create', [PostController::class, 'create']);
+// PostControllerルーティンググループ（認証機能付き、名前付き）
+Route::controller(PostController::class)->middleware(['auth'])->group(function(){
+    // ブログ投稿一覧画面を表示
+    Route::get('/', 'index')->name('index');
+    //ブログを投稿する
+    Route::post('/posts', 'store')->name('store');
+    //プログ作成画面を表示
+    Route::get('/posts/create', 'create')->name('create');
+    //ブログ詳細画面を表示
+    Route::get('/posts/{post}', 'show')->name('show');
+    //ブログ編集を実行する
+    Route::put('/posts/{post}', 'update')->name('update');
+    //ブログ削除を実行する
+    Route::delete('/posts/{post}', 'delete')->name('delete');
+    //ブログ編集画面を表示
+    Route::get('/posts/{post}/edit', 'edit')->name('edit');
+});
 
-// ブログ投稿詳細画面
-// '/posts/{対象データのID}'にGetリクエストが来たら、PostControllerのshowメソッドを実行する。
-Route::get('/posts/{post}', [PostController::class, 'show']);
+// CategoryControllerルーティンググループ
+Route::controller(CategoryController::class)->middleware(['auth'])->group(function(){
+    Route::get('/categories/{category}', 'index');
+});
 
-//ブログを投稿するボタンをクリックした際のPOSTリクエストを実行する
-Route::post('/posts', [PostController::class, 'store']);
-
-// ブログ編集画面を表示（{post}は編集したいブログ記事のid）
-Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
-
-//ブログ編集を実行する。
-Route::put('/posts/{post}', [PostController::class, 'update']);
-
-// ブログ削除を実行する
-Route::delete('/posts/{post}', [PostController::class, 'delete']);
-
-// カテゴリーごとのページを表示する
-Route::get('/categories/{category}', [CategoryController::class, 'index']);
+require __DIR__.'/auth.php';
