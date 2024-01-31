@@ -49,7 +49,18 @@
             <!--ページネーションリンク-->
             <div class="paginate">{{ $posts->links() }}</div>
             <p>ログインユーザー : {{ Auth::user()->name }}</p>
+            
+            <!--teratail APIから取得した質問データ一覧を表示する-->
+            <div>
+                @foreach($questions as $question)
+                    <div>
+                        <a href="https://teratail.com/questions/{{ $question['id'] }}">{{ $question['title'] }}</a>
+                    </div>
+                @endforeach
+            </div>
+            
         </x-app-layout>
+        
         <!--JavaScript-->
         <script>
             /**
