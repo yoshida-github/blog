@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// PostControllerルーティンググループ（認証機能付き）
+// PostControllerルーティンググループ（認証機能付き、名前付き）
 Route::controller(PostController::class)->middleware(['auth'])->group(function(){
     // ブログ投稿一覧画面を表示
     Route::get('/', 'index')->name('index');

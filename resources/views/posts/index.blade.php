@@ -48,6 +48,7 @@
             </div>
             <!--ページネーションリンク-->
             <div class="paginate">{{ $posts->links() }}</div>
+            <p>ログインユーザー : {{ Auth::user()->name }}</p>
         </x-app-layout>
         <!--JavaScript-->
         <script>
